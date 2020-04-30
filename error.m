@@ -1,1 +1,1 @@
-% Entradas % - f es la funcion% - T es el vector de las abscisas (eje x)% - Y es el vector de soluciones aproximadas para T% Salida % - E error maximo globalfunction E=error(f, T, Y) E=max(abs(Y - f(T)));
+% Entradas % - T es el vector de las abscisas (eje x)% - Y es el vector de soluciones aproximadas para T% Salida % - E error maximo globalfunction E=error(T, Y) E=max(abs(Y - T));
