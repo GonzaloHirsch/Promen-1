@@ -6,7 +6,7 @@
 % Salida 
 % - T es el vector de las abscisas (eje x)
 % - Y es el vector de la solución aproximada. 
-function [T, Y]=rk4(f,a,b,ya,N, h)
+function [T, Y]=rk4_edo(f,a,b,ya,N, h)
 T=zeros(N+1,1); 
 Y=zeros(N+1,length(ya)); 
 T(1)=a; 

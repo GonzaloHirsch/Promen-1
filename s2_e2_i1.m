@@ -1,4 +1,4 @@
-% Parametros
+% Constantes
 r = 0.0002;
 g = 0.2;
 
@@ -7,36 +7,43 @@ S0 = 10000;
 I0 = 2;
 R0 = 0;
 X0 = [S0, I0];  
-C = S0 + I0 + R0;
 
-% Intervalo de Integracion
+
+format long
+% Intervalo de Integracion y Paso de Integracion
 a = 0;
-b = 60;
-N = 200;
-h = (a+b) / N; 
+b = 51;
+h = 0.02; % h inicial (no optimizado)
 
-% Funciones S' e I'
-fS = @(t, S_t, I_t) (-r * S_t * I_t);
-fI = @(t, S_t, I_t) (r * S_t * I_t - g * I_t);
+optimizar = false;
 
-h_vals = []
-e_vals = []
-
-F = @(t, y) [fS(t, y(1), y(2)) fI(t, y(1), y(2))];
-
-% Aproximacion de las funciones
-[t, E] = rk4_edo(F, a, b, X0, N, h);
-
-
-% Calculo R (Se utiliza que S + I + R = Cte)
-R = [R0]; 
-for e = 2:(N+1)
-  R = [R;(C - E(e,1) - E(e, 2))];
+% Optimizacion del h
+if(optimizar)
+error = 10e-8
+E = [];
+H = [];
+display("Optimizando h");
+while (size(E) == 0 || E(end) > error)
+  [t, X1] = estimacion_SIR(a,b,h,X0,R0,r,g, false);
+  h = h/2;
+  [t, X2] = estimacion_SIR(a,b,h,X0,R0,r,g, false);
+  E = [E;max(diff(X1(:,1),X2(:,1)(1:2:end)), diff(X1(:,2),X2(:,2)(1:2:end)))];
+  X1 = X2;
+  H = [H; h E(end)];
 end
-E = [E R];
 
+h = H(end,1); % h optimizado
+end
 
-plot(t, E);
+% Estimo utilizando el paramentro adecuado
+display("Estimando SIR");
+[t X] = estimacion_SIR(a,b,h,X0,R0,r,g, true);
+Y = [t X];
 
-% TODO: Plotear I en funcion de S
-% TODO: Sacar h utilizando la estrategia de comparar los resultados usando h y h/2
+% Para graficar, se crea un matriz reducida, para facilitar la ejecucion
+skip = 1;
+X_plot = [X(:,1)(1:skip:end) X(:,2)(1:skip:end) X(:,3)(1:skip:end)];
+
+% Descomentar el grafico que desea graficar (comentar el otro)
+plot(t(1:skip:end), X_plot);                    % Grafico de S(t) I(t) R(t)
+%plot(X(:,1)(1:skip:end), X(:,2)(1:skip:end))    %Grafico de S(I(t))
