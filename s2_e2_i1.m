@@ -10,8 +10,17 @@ X0 = [S0, I0];
 
 % Intervalo de Integracion y Paso de Integracion
 a = 0;
-b = 51;
+b = 70;
 h = 0.02; % h inicial (no optimizado)
+
+% Optimizacion Intervalo de Integracion
+[t, X] = estimacion_SIR(a,b,h,X0,R0,r,g, false);
+for i = 1:size(t)
+  if(X(i,2) < 1)
+    b = t(i);
+    break
+  end
+end
 
 optimizar = false;
 
