@@ -1,6 +1,6 @@
 % Parametros
 la = 0.2;   % Lambdas; Usar la = [0.1 0.2 0.3]
-tv = 0;      % Inizacion de vacunas; Usar tv = [0 10]
+tv = 0;      % Iniciacion de vacunas; Usar tv = [0 10]
 
 % Valores Iniciales
 S0 = 10000;
@@ -10,7 +10,7 @@ poblacion = S0 + I0;
 
 % Intervalo de Integracion
 a = 0;
-b = 70;
+b = 49;
 h = 0.02;%0.0015625; % h obtenido en la primera seccion
 
 % Primera parte: 
@@ -34,13 +34,33 @@ display(La_res);
 % Fijar el lambda que desea graficar
 la = 0.1  %Lambdas; Usar la = [0.1 0.2 0.3]
 [t X] = estimacion_SIR_con_vacuna(a,b,h,X0,r,g,la,tv);
-%plot(t, X);              % Grafico de S(t) I(t)
+figure(2);
+subplot(2,1,1);
+plot(t, X);              % Grafico de S(t) I(t)
+title(sprintf("Con vacunas (Lambda = %f)", la));
+legend("S(t)", "I(t)");
+xlabel ("Tiempo");
+
+subplot(2,1,2);
 plot(X(:,1), X(:,2));     %Grafico de S(I(t))
+legend("S(I(t)");
+xlabel ("Suceptibles");
+ylabel ("Infectados");
+
 
 % Tercera parte: Vacunas aparecen apartir de t = 10
 % Descomentar el grafico que desea graficar (comentar el otro)
 tv = 10
 [t X_v10] = estimacion_SIR_con_vacuna(a,b,h,X0,r,g,la,tv);
-Y = [t Y_v10];
-%plot(t, X);              % Grafico de S(t) I(t)
-%plot(X(:,1), X(:,2));     %Grafico de S(I(t))
+figure(3);
+subplot(2,1,1);
+plot(t, X_v10);              % Grafico de S(t) I(t)
+xlabel ("Tiempo");
+legend("S(t)", "I(t)");
+
+title(sprintf("Con vacunas iniciando desde t = %f", tv));
+subplot(2,1,2);
+plot(X_v10(:,1), X_v10(:,2));     %Grafico de S(I(t))
+xlabel ("Suceptibles");
+ylabel ("Infectados");
+legend("S(I(t)");

@@ -34,7 +34,7 @@ while (size(E) == 0 || E(end) > error)
   [t, X1] = estimacion_SIR(a,b,h,X0,R0,r,g, false);
   h = h/2;
   [t, X2] = estimacion_SIR(a,b,h,X0,R0,r,g, false);
-  E = [E;max(diff(X1(:,1),X2(:,1)(1:2:end)), diff(X1(:,2),X2(:,2)(1:2:end)))];
+  E = [E;max(my_diff(X1(:,1),X2(:,1)(1:2:end)), my_diff(X1(:,2),X2(:,2)(1:2:end)))];
   X1 = X2;
   H = [H; h E(end)];
 end
@@ -52,5 +52,14 @@ skip = 1;
 X_plot = [X(:,1)(1:skip:end) X(:,2)(1:skip:end) X(:,3)(1:skip:end)];
 
 % Descomentar el grafico que desea graficar (comentar el otro)
+subplot(2,1,1);
+title("Modelo S I R")
 plot(t(1:skip:end), X_plot);                    % Grafico de S(t) I(t) R(t)
-%plot(X(:,1)(1:skip:end), X(:,2)(1:skip:end))      % Grafico de S(I(t))
+xlabel ("Tiempo");
+legend("S(t)", "I(t)", "R(t)");
+
+subplot(2,1,2);
+plot(X(:,1)(1:skip:end), X(:,2)(1:skip:end))      % Grafico de S(I(t))
+xlabel ("Suceptibles");
+ylabel ("Infectados");
+legend("S(I(t)");
