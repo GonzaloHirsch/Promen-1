@@ -8,8 +8,6 @@ I0 = 2;
 R0 = 0;
 X0 = [S0, I0];  
 
-
-format long
 % Intervalo de Integracion y Paso de Integracion
 a = 0;
 b = 51;
@@ -46,4 +44,4 @@ X_plot = [X(:,1)(1:skip:end) X(:,2)(1:skip:end) X(:,3)(1:skip:end)];
 
 % Descomentar el grafico que desea graficar (comentar el otro)
 plot(t(1:skip:end), X_plot);                    % Grafico de S(t) I(t) R(t)
-%plot(X(:,1)(1:skip:end), X(:,2)(1:skip:end))    %Grafico de S(I(t))
+%plot(X(:,1)(1:skip:end), X(:,2)(1:skip:end))      % Grafico de S(I(t))

@@ -47,7 +47,7 @@ for g=Gs
   [t X] = estimacion_SIR(a,b,h,X0,R0,r,g, true);
   Y = [t X];
   [t3 s3]=fin_epidemia(Y, poblacion);
-  G_res = [G_res; g t2];
+  G_res = [G_res; g t3];
 end
 
 display("Duracion de epidemia: gamma - tiempo");

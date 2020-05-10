@@ -41,6 +41,6 @@ plot(X(:,1), X(:,2));     %Grafico de S(I(t))
 % Descomentar el grafico que desea graficar (comentar el otro)
 tv = 10
 [t X_v10] = estimacion_SIR_con_vacuna(a,b,h,X0,r,g,la,tv);
-
+Y = [t Y_v10];
 %plot(t, X);              % Grafico de S(t) I(t)
 %plot(X(:,1), X(:,2));     %Grafico de S(I(t))
