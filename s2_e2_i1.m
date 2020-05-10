@@ -51,7 +51,7 @@ Y = [t X];
 skip = 1;
 X_plot = [X(:,1)(1:skip:end) X(:,2)(1:skip:end) X(:,3)(1:skip:end)];
 
-% Descomentar el grafico que desea graficar (comentar el otro)
+% Graficar resultados
 subplot(2,1,1);
 title("Modelo S I R")
 plot(t(1:skip:end), X_plot);                    % Grafico de S(t) I(t) R(t)
