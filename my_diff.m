@@ -1,0 +1,1 @@
+% Entradas % - T es el vector de las abscisas (eje x)% - Y es el vector de soluciones aproximadas para T% Salida % - E error maximo globalfunction E=my_diff(T, Y) E=max(abs(Y - T));
